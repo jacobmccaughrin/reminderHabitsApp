@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fitness & Health Log</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="log.css">
+    </head>
+    <body>
+        <div class="header">
+            <h1>Fitness & Health Log</h1>
+        </div>
+        <div class="container">
+            <form id="healthForm">
+                <label for="caloriesBurned">Calorires Burned:</label>
+                <input type="number" id="caloriesBurned" required></input>
+
+                <label for="foodConsumed">Food Consumed:</label>
+                <textarea id="foodConsumed" name="foodConsumed" rows="4" required></textarea>
+
+                <label for="exerciseType">Excerise Type:</label>
+                <select id="exerciseType" name="exerciseType" onchange="checkOtherOption()">
+                    <option value="running">Running</option>
+                    <option value="cycling">Cycling</option>
+                    <option value="swimming">Swimming</option>
+                    <option value="weightlifting">Weightlifting</option>
+                    <option value="interval">Interval Workout</option>
+                    <option value="other">Other</option>
+                </select>
+                
+                <!--input for 'other' option-->
+                <input type="text" id="otherExerciseType" name="otherExerciseType" placeholder="Enter other exercise type" style="display: none;">
+                <button type="button" id="submit" onclick="logEntry()">Log Entry</button>
+            </form>
+
+            <div id="logOutput"></div>
+        </div>
+        <script src="log.js"></script>
+    </body>
+</html>
