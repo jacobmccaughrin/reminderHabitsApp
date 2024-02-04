@@ -1,11 +1,24 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Courier Prime', monospace;
+    background-color: #f8f8f8;
+    font-size: xx-large;
+    overflow: hidden;
+}
+
+.header {
+    background-color: rgb(84, 147, 99);
+    color: white;
     text-align: center;
+    padding: 20px;
 }
 
 .container {
-    max-width: 400px;
+    max-width: 600px;
     margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 form {
@@ -26,7 +39,7 @@ select {
     box-sizing: border-box;
 }
 
-button {
+#submit {
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
@@ -37,4 +50,11 @@ button {
 
 #logOutput {
     text-align: left;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Settings</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="style.css" href="server.js">
+    </head>
+    <body>
+        <div class="header">
+          <center>
+            <h1 style="font-size: 100px;">Settings</h1>
+          </center>
+        </div>
+        <button id="notificationButton" class="btn btn-grad3">Enable Notifications</button>
+    <button id="disableNotificationButton" class="btn btn-grad4">Disable Notifications</button>
+    
+    <script>
+        var myInterval;
+        var notificationsEnabled = false;
+  
+        // Function to display browser notifications
+        function displayNotification(message) {
+            // Check if the browser supports notifications
+            if (!("Notification" in window)) {
+                console.error("This browser does not support system notifications");
+                return;
+            }
+
+            // Check if notification permission is granted
+            if (Notification.permission === "granted") {
+                // Create and display the notification
+                var notification = new Notification("New Notification", {
+                    body: message
+                });
+            } else if (Notification.permission !== "denied") {
+                // Otherwise, request permission from the user
+                Notification.requestPermission().then(function(permission) {
+                    if (permission === "granted") {
+                        // If permission is granted, display the notification
+                        displayNotification(message);
+                    }
+                });
+            }
+        }
+        
+        // Function to enable notifications
+        function enableNotifications() {
+            notificationsEnabled = true;
+            // Start periodic notifications
+            displayNotification("enabled Notification permissions!");
+            if (notificationsEnabled) {
+                myInterval = setInterval(fetchNotifications, 5000); // 5 seconds in milliseconds
+            }
+        }
+
+        // Function to disable notifications
+        function disableNotifications() {
+            clearInterval(myInterval); // Clear the interval to stop fetching notifications
+            notificationsEnabled = false;
+            displayNotification("Disabled Notification permissions!"); // Display a notification confirming that notifications are disabled
+        }
+
+        // Attach event listener to the "Enable Notifications" button
+        document.getElementById('notificationButton').addEventListener('click', enableNotifications);
+
+        // Attach event listener to the "Disable Notifications" button
+        document.getElementById('disableNotificationButton').addEventListener('click', disableNotifications);
+
+        // Function to fetch notifications from the server
+        function fetchNotifications() {
+            // Make an HTTP request to the server to check for notifications
+            fetch('http://127.0.0.1:5500/sendNotification')
+            .then(response => response.text())
+            .then(data => {
+                console.log(data); // Log success message
+                displayNotification(data); // Display browser notification
+            });
+        }
+    </script>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <a href="base.html">
+        <button class="btn btn-primary" style="font-size: 28px; margin-left: 15px; margin-bottom: 30px; scale: 1.1;">Back</button>
+    </a>
+    </body>
+</html>
