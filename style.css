@@ -8,6 +8,7 @@
 
 body{
   font-family: 'Courier Prime', monospace;
+  scrollbar-width: 0;
 }
 
 .image-container{
@@ -33,6 +34,8 @@ input.largerCheckBox{
 
 .modal-dialog{
     width: 90%;
+    align-items: center;
+    height: 65%;
 }
 
          
