@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .header{
+    padding: 60px;
+    text-align: center;
+    background-color: rgb(134, 230, 156);
+    color: rgb(84, 84, 84);
+    font-size: 40px;
+    }
+    </style>
+</head>
+<body style="background-color: rgb(190, 236, 201);">
+   
+    <div class="header">
+        <h1>hello</h1>
+    </div>
+        
+    
+
+
+    <h1 style="margin-left: 300px; font-size: 80px;">Goals:</h1>
+    <button id="notificationButton">Enable Notifications</button>
+    <br><br>
+    <button id="disableNotificationButton">Disable Notifications</button>
+    <br><br>
+    
+    <form class="checklist" id="myForm" name="Form">
+        <div id="checkboxContainer">
+            <input type="checkbox" id="task1" name="task1" value="posture" class="largerCheckBox">
+            <label for="task1">Posture correction</label><br>
+            <input type="checkbox" id="task2" name="task2" value="workout" class="largerCheckBox">
+            <label for="task2">Workout/stretch routines</label><br>
+            <input type="checkbox" id="task3" name="task3" value="water" class="largerCheckBox">
+            <label for="task3">Drink enough water!</label><br>
+            <input type="checkbox" id="task4" name="task4" value="food" class="largerCheckBox">
+            <label for="task4">Eat healthy</label><br>
+        </div>
+        <button type="submit" class="btn-grad2">Submit</button>
+    </form>
+    <br>
+    <input type="text" id="checkboxInput" placeholder="Enter checkbox label" style="text-align: center;">
+    <button onclick="addCheckbox()">Add Checkbox</button>
+    
+    <script>
+        var notificationsEnabled = false;
+        document.getElementById('notificationButton').addEventListener('click', enableNotifications);
+        document.getElementById('disableNotificationButton').addEventListener('click', disableNotifications);
+        
+        function enableNotifications() {
+            notificationsEnabled = true;
+            displayNotification("enabled Notification permissions!");
+        }
+        
+        function disableNotifications() {
+            notificationsEnabled = false;
+            displayNotification("disabled Notification permissions!");
+        }
+        
+        function displayNotification(message) {
+            if (!("Notification" in window)) {
+                console.error("This browser does not support system notifications");
+                return;
+            }
+            if (Notification.permission === "granted") {
+                var notification = new Notification("New Notification", {
+                    body: message
+                });
+            }
+        }   
+        function countCheckboxes() {
+            var checkboxes = document.querySelectorAll('#myForm input[type="checkbox"]');
+            return checkboxes.length;
+        }
+        function handleFormSubmission(event) {
+            event.preventDefault();
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var uncheckedCheckboxes = [];
+            checkboxes.forEach(function (checkbox) {
+                if (!checkbox.checked) {
+                    uncheckedCheckboxes.push(checkbox.id);
+                }
+            });
+            if (uncheckedCheckboxes.length > 0 && notificationsEnabled == true) {
+                var message = "You have not checked the following tasks: " + uncheckedCheckboxes.join(', ');
+                displayNotification(message);
+            } else if(notificationsEnabled == true){
+                displayNotification("All tasks are checked!");
+            }
+        }
+        
+        function addCheckbox() {
+            var checkboxLabel = document.getElementById('checkboxInput').value;
+            if (checkboxLabel.trim() === '') {
+                alert('Please enter a label for the checkbox.');
+                return;
+            }
+            var checkboxContainer = document.getElementById('checkboxContainer');
+            var checkbox = document.createElement('input');
+
+            checkbox.type = 'checkbox';
+            checkbox.id = 'task' + (countCheckboxes() + 1);
+            checkbox.name = checkboxLabel;
+            checkbox.value = checkboxLabel;
+
+            var label = document.createElement('label');
+            label.appendChild(document.createTextNode(checkboxLabel));
+            checkboxContainer.appendChild(checkbox);
+            checkboxContainer.appendChild(label);
+            var br = document.createElement('br');
+            checkboxContainer.appendChild(br);
+
+            val = countCheckboxes('myForm')
+            document.getElementById('checkboxInput').value = '';
+            // Update event listener for form submission
+            document.getElementById('myForm').removeEventListener('submit', handleFormSubmission);
+            document.getElementById('myForm').addEventListener('submit', handleFormSubmission);
+        }
+        document.getElementById('myForm').addEventListener('submit', handleFormSubmission);
+    </script>
+</body>
+</html>
