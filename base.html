@@ -15,9 +15,19 @@
         <div class="header">
           <center>
             <h1 style="font-size: 100px;">Welcome!</h1>
-            <button class="btn-grad1" onclick="welcome();" data-toggle="modal" data-target="#welcome" style="margin-right: 10px; font-family: 'Courier Prime', monospace;">About Us</button>
           </center>
         </div>
+
+        <!--Sidebar Navigation-->
+        <div id="mySideNav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <a onclick="welcome();" data-toggle="modal" data-target="#welcome">About Us</a>
+          <a href="log_stuff.html">Engagement Log</a>
+          <a href="goal.html">Goals</a>
+          <a href="settings.html">Settings</a>
+        </div>
+        <span style="font-size:50px;cursor:pointer; margin-left: 25px;" onclick="openNav()">&#9776; Open</span>
+
         <!-- HTML with custom checkboxes -->
         <h1 style="margin-left: 300px; font-size: 80px;">Goals:</h1>
 
@@ -34,20 +44,6 @@
             <label for="task4">Eat healthy</label><br>
             <button type="submit" class="btn-grad2">Submit</button>
           </form>
-    
-          <!-- Second Section -->
-          <span>
-            <a href="goal.html">
-              <button class="btn btn-success" style="margin-left:150px;height: 65px; font-size: 35px; scale: 1.3;">Goals</button>
-            </a>
-            <br><br><br>
-            <a href="settings.html">
-              <button class="btn btn-info" style="font-size: 35px; margin-left: 200px; scale: 1.3;">Settings</button>
-            </a>
-          </span>
-          <a href="log_stuff.html">
-            <button class="btn btn-warning" style="font-size: 35px; scale: 1.3;">Log your Exercise & Food</button>
-        </a>
         </div>
       
           <!--HTML About Us Popup-->
@@ -85,6 +81,14 @@
             function close_welcome()
             {
               document.getElementById("close_welcome").play();
+            }
+
+            // sidenav overlay
+            function openNav(){
+              document.getElementById("mySideNav").style.width = "250px";
+            }
+            function closeNav(){
+              document.getElementById("mySideNav").style.width = "0px";
             }
           </script>
     </body>
