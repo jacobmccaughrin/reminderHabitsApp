@@ -7,14 +7,16 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
-        <link rel="icon" href="favicon.ico" type="image/x-icon">
 
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <div class="header">
+        <div class="header" style="height: 450px;">
           <center>
-            <h1 style="font-size: 100px;">Welcome!</h1>
+            <div style="display: flex; margin-left: 300px; position: absolute;">
+              <img src="./images/avocado.png" style="scale: 0.75;">
+              <h1 style="font-size: 100px; margin-top: 250px;">Welcome!</h1>
+            </div>
           </center>
         </div>
 
@@ -29,34 +31,60 @@
         <span style="font-size:50px;cursor:pointer; margin-left: 25px;" onclick="openNav()">&#9776; Open</span>
 
         <!-- HTML with custom checkboxes -->
-        <h1 style="margin-left: 300px; font-size: 80px;">Goals:</h1>
-
         <div style="display: flex;">
-          <!-- First Section -->
-          <form class="checklist" id="myForm">
-            <input type="checkbox" id="task1" name="task1" value="posture" class="largerCheckBox">
-            <label for="task1">Posture correction</label><br>
-            <input type="checkbox" id="task2" name="task2" value="workout" class="largerCheckBox">
-            <label for="task2">Workout/stretch routines</label><br>
-            <input type="checkbox" id="task3" name="task3" value="water" class="largerCheckBox">
-            <label for="task3">Drink enough water!</label><br>
-            <input type="checkbox" id="task4" name="task4" value="food" class="largerCheckBox">
-            <label for="task4">Eat healthy</label><br>
-            <button type="submit" class="btn-grad2">Submit</button>
-          </form>
+          <div style="display: flex;">
+            <h1 style="margin-left: 50px; font-size: 80px;">Goals:</h1>
+            <div style="display: flex; margin-top: 125px;">
+              <!-- First Section -->
+              <form class="checklist" id="myForm" style="font-size: 35px; width: 350px;">
+                <input type="checkbox" id="task1" name="task1" value="posture" class="largerCheckBox">
+                <label for="task1">Posture</label><br>
+                <input type="checkbox" id="task2" name="task2" value="workout" class="largerCheckBox">
+                <label for="task2">Workout</label><br>
+                <input type="checkbox" id="task3" name="task3" value="water" class="largerCheckBox">
+                <label for="task3">Water</label><br>
+                <input type="checkbox" id="task4" name="task4" value="food" class="largerCheckBox">
+                <label for="task4">Eat healthy</label><br>
+                <button type="submit" class="btn-grad2">Submit</button>
+              </form>
+            </div>
+            <div style="margin-left: 300px;">
+              <br>
+              <h3 style="width: 900px; margin-left: 150px;">Vegetables are a good source of dietary fiber, a type of carbohydrate that helps pass food through your digestive system. Studies show that fiber may also improve vitamin and mineral absorption in the body, which could potentially raise your daily energy levels. Perfect for a Hackathon👍</h3>
+              <img src="./images/veggies.png" style="scale: 0.5; border-radius: 5%;">
+            </div>
+          </div>
         </div>
-      
-          <!--HTML About Us Popup-->
-          <div id="welcome" class="modal fade">
-            <div class="modal-dialog">
+
+        <!-- Settings Modal -->
+        <div id="settings" class="modal fade">
+          <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
-                <div class="modal-header">
-                  <button style = 'color:blue' onclick = 'close_welcome();' class="close" data-dismiss = 'modal'>&timesbar;</button>
-                  <h2 style="width:98%">Empowering individuals to cultivate healthy habits is not just a goal; it's our mission. Together, let's embrace a lifestyle that nourishes our bodies, minds, and spirits. Through encouragement and support, we aspire to inspire everyone to embark on a journey towards well-being. Your health matters, and the choices you make today shape the vitality of your tomorrows. Join us in fostering a community where healthy habits flourish, and each step taken is a stride toward a more vibrant and fulfilling life.</h4>
-                </div>
+                  <div class="modal-header">
+                      <button style='color:rgb(0, 0, 0)' onclick='close_welcome();' class="close" data-dismiss='modal'>&times;</button>
+                      <div class="menu">
+                          <h2>Settings</h2>
+                          <input type="radio" name="notifs">
+                          <label for="enable">Enable Notifications</label>
+                          <input type="radio" name="notifs">
+                          <label for="disable">Disable Notifications</label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+        <!--HTML About Us Popup-->
+        <div id="welcome" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button style = 'color:blue' onclick = 'close_welcome();' class="close" data-dismiss = 'modal'>&timesbar;</button>
+                <h2 style="width:98%">Empowering individuals to cultivate healthy habits is not just a goal; it's our mission. Together, let's embrace a lifestyle that nourishes our bodies, minds, and spirits. Through encouragement and support, we aspire to inspire everyone to embark on a journey towards well-being. Your health matters, and the choices you make today shape the vitality of your tomorrows. Join us in fostering a community where healthy habits flourish, and each step taken is a stride toward a more vibrant and fulfilling life.</h4>
               </div>
             </div>
           </div>
+        </div>
         <script>
             // Retrieve checkbox states from local storage and set them on page load
             window.onload = function() {
@@ -90,6 +118,13 @@
             function closeNav(){
               document.getElementById("mySideNav").style.width = "0px";
             }
+
+            // opening settings modal
+            function openSettingsModal(){
+              $("#settings").modal('show');
+            }
+
+            document.getElementById("settingsLink").addEventListener("click", openSettingsModal);
           </script>
     </body>
 </html>
