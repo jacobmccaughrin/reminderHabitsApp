@@ -21,26 +21,8 @@
             <a href="base.html">Home</a>
             <a href="goal.html">Goals</a>
             <a href="settings.html">Settings</a>
-        </div>
-        <span style="font-size:50px;cursor:pointer; margin-left: 25px;" onclick="openNav()">&#9776; open</span>
-
-          <!-- Settings Modal -->
-        <div id="settings" class="modal fade">
-          <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <button style='color:rgb(0, 0, 0)' onclick='close_welcome();' class="close" data-dismiss='modal'>&times;</button>
-                      <div class="menu">
-                          <h2>Settings</h2>
-                          <input type="radio" name="notifs">
-                          <label for="enable">Enable Notifications</label>
-                          <input type="radio" name="notifs">
-                          <label for="disable">Disable Notifications</label>
-                      </div>
-                  </div>
-              </div>
           </div>
-      </div>
+          <span style="font-size:50px;cursor:pointer; margin-left: 25px;" onclick="openNav()">&#9776; open</span>
         
           <!--HTML About Us Popup-->
         <div id="welcome" class="modal fade">
@@ -94,13 +76,6 @@
             function closeNav(){
               document.getElementById("mySideNav").style.width = "0px";
             }
-
-            // opening settings modal
-            function openSettingsModal(){
-              $("#settings").modal('show');
-            }
-
-            document.getElementById("settingsLink").addEventListener("click", openSettingsModal);
         </script>
     </body>
 </html>
