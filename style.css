@@ -5,6 +5,25 @@
   font-size: 40px;
 }
 
+#notificationButton{
+  font-size: 30px;
+  scale: 1.5;
+}
+
+#notificationLabel{
+  font-size: 30px;
+  margin-right: 40px;
+}
+
+#disableNotificationLabel{
+  font-size: 30px;
+}
+
+#disableNotificationButton{
+  font-size: 30px;
+  scale: 1.5;
+}
+
 section{
   display: inline-block;
   margin: 0 1.5%;
@@ -170,10 +189,8 @@ input.largerCheckBox{
 }
 
 .image-container {
-  margin-top: -150px;
   flex: 1;
   max-width: 900px;
-  margin-right: 250px;
   text-align: center;
 }
 

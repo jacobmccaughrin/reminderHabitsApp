@@ -2,19 +2,18 @@ body {
     font-family: 'Courier Prime', monospace;
     background-color: #f8f8f8;
     font-size: xx-large;
-    overflow: hidden;
 }
 
 .header {
-    background-color: rgb(84, 147, 99);
-    color: white;
+    background-color: rgb(190, 236, 201);
+    color: rgb(84, 84, 84);
     text-align: center;
     padding: 20px;
 }
 
 .container {
     max-width: 600px;
-    margin: 20px auto;
+    margin: -20px auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
