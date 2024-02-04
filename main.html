@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Notification Demo</title>
-<script src="server.js"></script>
 <style>
     /* Add your CSS styles here */
 </style>
@@ -19,7 +18,7 @@
     <script>
         var myInterval;
         var notificationsEnabled = false;
-        
+  
         // Function to display browser notifications
         function displayNotification(message) {
             // Check if the browser supports notifications
@@ -28,30 +27,45 @@
                 return;
             }
 
-            // Create and display the notification
-            var notification = new Notification("New Notification", {
-                body: message
-            });
+            // Check if notification permission is granted
+            if (Notification.permission === "granted") {
+                // Create and display the notification
+                var notification = new Notification("New Notification", {
+                    body: message
+                });
+            } else if (Notification.permission !== "denied") {
+                // Otherwise, request permission from the user
+                Notification.requestPermission().then(function(permission) {
+                    if (permission === "granted") {
+                        // If permission is granted, display the notification
+                        displayNotification(message);
+                    }
+                });
+            }
         }
         
-        // Function to request notification permission
-        function requestNotificationPermission() {
-            // Request permission for notifications
-            Notification.requestPermission().then(function(result) {
-                if (result === 'granted') {
-                    // If permission is granted, display a test notification
-                    displayNotification("Notification permissions granted!");
-                    notificationsEnabled = true;
-                    // Start periodic notifications
-                    if(notificationsEnabled){
-                        myInterval = setInterval(fetchNotifications, 5000); // 5 seconds in milliseconds
-                    }
-                }
-            });
+        // Function to enable notifications
+        function enableNotifications() {
+            notificationsEnabled = true;
+            // Start periodic notifications
+            displayNotification("enabled Notification permissions!");
+            if (notificationsEnabled) {
+                myInterval = setInterval(fetchNotifications, 5000); // 5 seconds in milliseconds
+            }
         }
 
-        // Attach event listener to the button to request notification permission
-        document.getElementById('notificationButton').addEventListener('click', requestNotificationPermission);
+        // Function to disable notifications
+        function disableNotifications() {
+            clearInterval(myInterval); // Clear the interval to stop fetching notifications
+            notificationsEnabled = false;
+            displayNotification("Disabled Notification permissions!"); // Display a notification confirming that notifications are disabled
+        }
+
+        // Attach event listener to the "Enable Notifications" button
+        document.getElementById('notificationButton').addEventListener('click', enableNotifications);
+
+        // Attach event listener to the "Disable Notifications" button
+        document.getElementById('disableNotificationButton').addEventListener('click', disableNotifications);
 
         // Function to fetch notifications from the server
         function fetchNotifications() {
@@ -63,16 +77,6 @@
                 displayNotification(data); // Display browser notification
             });
         }
-
-        // Function to disable notifications
-        function disableNotifications() {
-            clearInterval(myInterval); // Clear the interval to stop fetching notifications
-            displayNotification("Disabled Notification permissions!"); // Display a notification confirming that notifications are disabled
-            notificationsEnabled = false;
-        }
-
-        // Attach event listener to the "Disable Notifications" button
-        document.getElementById('disableNotificationButton').addEventListener('click', disableNotifications);
     </script>
 </body>
 </html>

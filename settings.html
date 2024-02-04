@@ -7,7 +7,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
-
+        <link rel="icon" href="images/avocado.png" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="style.css" href="server.js">
     </head>
     <body>
@@ -34,59 +34,72 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button style = 'color:blue' onclick = 'close_welcome();' class="close" data-dismiss = 'modal'>&timesbar;</button>
-                  <center>
-                    <h2 style="width:98%;">Made By TeenTechSF Hackathon Team: Jacob, Sean, Cinty, and Kalani</h4>
-                  </center>
+                  <h2 style="width:98%">Empowering individuals to cultivate healthy habits is not just a goal; it's our mission. Together, let's embrace a lifestyle that nourishes our bodies, minds, and spirits. Through encouragement and support, we aspire to inspire everyone to embark on a journey towards well-being. Your health matters, and the choices you make today shape the vitality of your tomorrows. Join us in fostering a community where healthy habits flourish, and each step taken is a stride toward a more vibrant and fulfilling life.</h4>
                 </div>
               </div>
             </div>
           </div>
     
     <script>
-        var myInterval;
-        var notificationsEnabled = false;
-  
-        // Function to display browser notifications
-        function displayNotification(message) {
-            // Check if the browser supports notifications
-            if (!("Notification" in window)) {
-                console.error("This browser does not support system notifications");
-                return;
-            }
+      var myInterval;
+      var notificationsEnabled = false;
 
-            // Check if notification permission is granted
-            if (Notification.permission === "granted") {
-                // Create and display the notification
-                var notification = new Notification("New Notification", {
-                    body: message
-                });
-            } else if (Notification.permission !== "denied") {
-                // Otherwise, request permission from the user
-                Notification.requestPermission().then(function(permission) {
-                    if (permission === "granted") {
-                        // If permission is granted, display the notification
-                        displayNotification(message);
-                    }
-                });
-            }
-        }
-        
-        // Function to enable notifications
-        function enableNotifications() {
-            notificationsEnabled = true;
-            // Start periodic notifications
-            displayNotification("enabled Notification permissions!");
-            if (notificationsEnabled) {
-                myInterval = setInterval(fetchNotifications, 5000); // 5 seconds in milliseconds
-            }
-        }
+// Function to display browser notifications
+function displayNotification(message) {
+    // Check if the browser supports notifications
+    if (!("Notification" in window)) {
+        console.error("This browser does not support system notifications");
+        return;
+    }
 
-        // Function to disable notifications
-        function disableNotifications() {
-            clearInterval(myInterval); // Clear the interval to stop fetching notifications
-            notificationsEnabled = false;
-            displayNotification("Disabled Notification permissions!"); // Display a notification confirming that notifications are disabled
-        }
+    // Check if notification permission is granted
+    if (Notification.permission === "granted") {
+        // Create and display the notification
+        var notification = new Notification("New Notification", {
+            body: message,
+            
+        });
+    } else if (Notification.permission !== "denied") {
+        // Otherwise, request permission from the user
+        Notification.requestPermission().then(function(permission) {
+            if (permission === "granted") {
+                // If permission is granted, display the notification
+                displayNotification(message);
+            }
+        });
+    }
+}
+
+
+
+// Open the window
+
+// Function to enable notifications
+function enableNotifications() {
+    notificationsEnabled = true;
+    displayNotification("Enabled Notification permissions!");
+    localStorage.setItem('notification', notificationsEnabled);
+    
+    // Start periodic notifications
+    // 5 seconds in milliseconds
+}
+
+// Function to disable notifications
+function disableNotifications() {
+
+    clearInterval(myInterval); // Clear the interval to stop fetching notifications
+    notificationsEnabled = false;
+    localStorage.setItem('notification', notificationsEnabled);
+    displayNotification("Disabled Notification permissions!"); // Display a notification confirming that notifications are disabled
+
+}
+
+// Function to fetch notifications
+function fetchNotifications() {
+    // Here you can put your notification fetching logic
+    // For demonstration, let's display a message every 5 seconds
+    displayNotification("This is a notification message!");
+}
 
         // Attach event listener to the "Enable Notifications" button
         document.getElementById('notificationButton').addEventListener('click', enableNotifications);
@@ -94,18 +107,7 @@
         // Attach event listener to the "Disable Notifications" button
         document.getElementById('disableNotificationButton').addEventListener('click', disableNotifications);
 
-        // Function to fetch notifications from the server
-        function fetchNotifications() {
-            // Make an HTTP request to the server to check for notifications
-            fetch('http://127.0.0.1:5500/sendNotification')
-            .then(response => response.text())
-            .then(data => {
-                console.log(data); // Log success message
-                displayNotification(data); // Display browser notification
-            });
-        }
-
-        // sidenav overlay
+        // Function to open sidenav overlay
         function openNav(){
               document.getElementById("mySideNav").style.width = "250px";
             }

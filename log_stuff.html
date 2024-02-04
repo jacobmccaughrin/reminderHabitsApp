@@ -7,7 +7,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+        <link rel="icon" href="images/avocado.png" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="log.css">
+        
     </head>
     <body>
         <div class="header">    
@@ -39,24 +41,27 @@
         <div class="container">
             <form id="healthForm">
               <div id="foodInputsContainer">
-                <div>
-                  <label for="breakfast">Breakfast:</label>
-                  <input type="text" id="breakfast" name="breakfast" list="foodSuggestions" placeholder="Select one">
-                  <datalist id="foodSuggestionsBreakfast"></datalist>
+                <div id="breakfastInputsContainer">
+                    <label for="breakfast">Breakfast:</label>
+                    <input type="text" name="breakfast[]" list="foodSuggestions" placeholder="Select one">
+                    <datalist id="foodSuggestions"></datalist>
+                    <button type="button" onclick="addFoodInput('breakfast')">Add Food</button>
                 </div>
-
-                <div>
-                  <label for="lunch">Lunch:</label>
-                  <input type="text" id="lunch" name="lunch" list="foodSuggestions" placeholder="Select one">
-                  <datalist id="foodSuggestions"></datalist>
+            
+                <div id="lunchInputsContainer">
+                    <label for="lunch">Lunch:</label>
+                    <input type="text" name="lunch[]" list="foodSuggestions" placeholder="Select one">
+                    <datalist id="foodSuggestions"></datalist>
+                    <button type="button" onclick="addFoodInput('lunch')">Add Food</button>
                 </div>
-
-                <div>
-                  <label for="dinner">Dinner:</label>
-                  <input type="text" id="dinner" name="dinner" list="foodSuggestions" placeholder="Select one">
-                  <datalist id="foodSuggestions"></datalist>
+            
+                <div id="dinnerInputsContainer">
+                    <label for="dinner">Dinner:</label>
+                    <input type="text" name="dinner[]" list="foodSuggestions" placeholder="Select one">
+                    <datalist id="foodSuggestions"></datalist>
+                    <button type="button" onclick="addFoodInput('dinner')">Add Food</button>
                 </div>
-              </div>
+            </div>
                 
               <label for="exerciseType">Excerise Type:</label>
               <select id="exerciseType" name="exerciseType" onchange="checkOtherOption()">
@@ -65,7 +70,7 @@
                   <option value="swimming">Swimming</option>
                   <option value="weightlifting">Weightlifting</option>
                   <option value="interval">Interval Workout</option>
-                  <option value="other">Other</option>
+                  <option value="none">None</option>
               </select>
                 
               <!--input for 'other' option-->
@@ -84,6 +89,15 @@
             function closeNav(){
               document.getElementById("mySideNav").style.width = "0px";
             }
+            function addFoodInput(meal) {
+    const mealInputContainer = document.getElementById(meal + "InputsContainer");
+    const newInput = document.createElement("div");
+    newInput.innerHTML = `<input type="text" name="${meal}[]" list="foodSuggestions" placeholder="Select one">
+                         <datalist id="foodSuggestions"></datalist>`;
+    mealInputContainer.appendChild(newInput);
+}
+
+
         </script>
     </body>
 </html>

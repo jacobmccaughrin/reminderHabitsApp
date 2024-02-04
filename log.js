@@ -1,4 +1,5 @@
 let foods; // Variable to store the loaded JSON data
+var loggedFood = localStorage.setItem('foodLogged',false);
 
 function checkOtherOption() {
     const exerciseTypeDropdown = document.getElementById("exerciseType");
@@ -9,34 +10,38 @@ function checkOtherOption() {
 }
 
 async function logEntry() {
-    const breakfast = document.getElementById("breakfast").value;
-    const lunch = document.getElementById("lunch").value;
-    const dinner = document.getElementById("dinner").value;
+    const selectedFoods = {};
+    const mealInputs = document.querySelectorAll("[id$='InputsContainer'] input");
+    mealInputs.forEach(input => {
+        const mealName = input.name.replace('[]', '');
+        if (!selectedFoods[mealName]) {
+            selectedFoods[mealName] = [];
+        }
+        selectedFoods[mealName].push(input.value);
+    });
+
     const exerciseType = document.getElementById("exerciseType").value;
     const otherExerciseType = document.getElementById("otherExerciseType").value;
-
-    // Define selectedFoods after the individual meals are obtained
-    const selectedFoods = [breakfast, lunch, dinner];
-
-    // if other is selected, then use value from input
-    const selectedExerciseType = (exerciseType === 'other') ? otherExerciseType : exerciseType;
+    loggedFood = localStorage.setItem('foodLogged',true);
 
     if (!foods) {
         // Load the foods data if not already loaded
         await loadFoodData();
     }
 
-    const totalCalories = selectedFoods.reduce((calories, food) => {
+    const totalCalories = Object.values(selectedFoods).flat().reduce((calories, food) => {
         const foodCalories = foods.foods[food] || 0;
+        
         return calories + foodCalories;
     }, 0);
 
     const logOutput = document.getElementById("logOutput");
-    logOutput.innerHTML += `<p><strong>Breakfast:</strong> ${breakfast}</p>`;
-    logOutput.innerHTML += `<p><strong>Lunch:</strong> ${lunch}</p>`;
-    logOutput.innerHTML += `<p><strong>Dinner:</strong> ${dinner}</p>`;
+    logOutput.innerHTML = '';
+    for (const mealName in selectedFoods) {
+        logOutput.innerHTML += `<p><strong>${mealName.charAt(0).toUpperCase() + mealName.slice(1)}:</strong> ${selectedFoods[mealName].join(', ')}</p>`;
+    }
     logOutput.innerHTML += `<p><strong>Total Calories:</strong> ${totalCalories}</p>`;
-    logOutput.innerHTML += `<p><strong>Exercise Type:</strong> ${selectedExerciseType}</p>`;
+    logOutput.innerHTML += `<p><strong>Exercise Type:</strong> ${exerciseType === 'other' ? otherExerciseType : exerciseType}</p>`;
 
     document.getElementById("healthForm").reset();
     document.getElementById("otherExerciseType").style.display = 'none';
@@ -58,17 +63,17 @@ async function loadFoodSuggestions() {
             await loadFoodData();
         }
 
-        const datalist = document.getElementById('foodSuggestions');
-
-        // clear existing options
-        datalist.innerHTML = '';
-
-        // populate the datalist with food suggestions
-        for (const food in foods.foods) {
-            const option = document.createElement('option');
-            option.value = food;
-            datalist.appendChild(option);
-        }
+        const mealInputs = document.querySelectorAll("[id$='InputsContainer'] input");
+        mealInputs.forEach(input => {
+            const datalist = input.nextElementSibling;
+            datalist.innerHTML = '';
+            // populate the datalist with food suggestions
+            for (const food in foods.foods) {
+                const option = document.createElement('option');
+                option.value = food;
+                datalist.appendChild(option);
+            }
+        });
     } catch (error) {
         console.error('Error loading food suggestions:', error);
     }

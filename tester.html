@@ -4,9 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .header{
+    padding: 60px;
+    text-align: center;
+    background-color: rgb(134, 230, 156);
+    color: rgb(84, 84, 84);
+    font-size: 40px;
+    }
+    </style>
 </head>
-<body>
+<body style="background-color: rgb(190, 236, 201);">
+   
+    <div class="header">
+        <h1>hello</h1>
+    </div>
+        
     
+
+
     <h1 style="margin-left: 300px; font-size: 80px;">Goals:</h1>
     <button id="notificationButton">Enable Notifications</button>
     <br><br>
@@ -24,9 +40,10 @@
             <input type="checkbox" id="task4" name="task4" value="food" class="largerCheckBox">
             <label for="task4">Eat healthy</label><br>
         </div>
+        <button type="submit" class="btn-grad2">Submit</button>
     </form>
     <br>
-    <input type="text" id="checkboxInput" placeholder="Enter checkbox label">
+    <input type="text" id="checkboxInput" placeholder="Enter checkbox label" style="text-align: center;">
     <button onclick="addCheckbox()">Add Checkbox</button>
     
     <script>
@@ -103,6 +120,7 @@
             document.getElementById('myForm').removeEventListener('submit', handleFormSubmission);
             document.getElementById('myForm').addEventListener('submit', handleFormSubmission);
         }
+        document.getElementById('myForm').addEventListener('submit', handleFormSubmission);
     </script>
 </body>
 </html>

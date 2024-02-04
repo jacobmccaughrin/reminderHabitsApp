@@ -3,6 +3,7 @@
   background-color: rgb(190, 236, 201);
   color: rgb(84, 84, 84);
   font-size: 40px;
+  margin: -50px;
 }
 
 #notificationButton{
@@ -35,7 +36,8 @@ body{
 }
 
 .image-container{
-  text-align: right;
+  text-align: left;
+  margin-right: 100px;
 }
 
 .checklist{
@@ -57,7 +59,7 @@ input.largerCheckBox{
 .modal-dialog{
     width: 90%;
 }
-         
+
 .btn-grad1 {
     align-self: center;
     background-image: linear-gradient(to right, #4CB8C4 0%, #3CD3AD  51%, #4CB8C4  100%);
@@ -78,8 +80,8 @@ input.largerCheckBox{
     color: #fff;
     text-decoration: none;
   }
- 
-           
+
+
   .btn-grad2 {
     background-image: linear-gradient(to right, #F09819 0%, #EDDE5D  51%, #F09819  100%);
     margin: 10px;
@@ -100,7 +102,7 @@ input.largerCheckBox{
     text-decoration: none;
   }
 
-           
+
   .btn-grad3 {
     font-size: 25px;
     background-image: linear-gradient(to right, #43cea2 0%, #185a9d  51%, #43cea2  100%);
@@ -122,7 +124,7 @@ input.largerCheckBox{
     text-decoration: none;
   }
 
-           
+
   .btn-grad4 {
     font-size: 25px;
     background-image: linear-gradient(to right, #FF512F 0%, #DD2476  51%, #FF512F  100%);
@@ -146,7 +148,6 @@ input.largerCheckBox{
 
   .sidenav{
     height: 100%;
-    width: 0;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -156,7 +157,7 @@ input.largerCheckBox{
     padding-top: 60px;
     transition: 0.5s;
   }
-  
+
   .sidenav a{
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -165,11 +166,11 @@ input.largerCheckBox{
     display: block;
     transition: 0.3s;
   }
-  
+
   .sidenav a:hover{
     color: #f1f1f1;
   }
-  
+
   .sidenav .closebtn{
     position: absolute;
     top: 0;
@@ -192,6 +193,7 @@ input.largerCheckBox{
   flex: 1;
   max-width: 900px;
   text-align: center;
+  margin-top: px;
 }
 
 .image-container img {

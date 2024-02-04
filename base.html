@@ -8,6 +8,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="images/avocado.png" type="image/x-icon">
+
 
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
@@ -18,7 +20,7 @@
               <img src="images/Healthy food Healthy life.png">
             </section>
             <section>
-              <h1 style="font-size: 250%;">Welcome!</h1>
+              <h1 style="font-size: 250%;">Notify Nutrition</h1>
             </section>
           </center>
         </div>
@@ -32,26 +34,25 @@
           <a onclick="settings()" data-toggle="modal" data-target="#settings">Notification Settings</a>
         </div>
         <div style="display: flex;">
-          <span style="font-size:50px;cursor:pointer; margin-left: 25px;" onclick="openNav()">&#9776; Open</span>
+          <span style="font-size: 2.5vw; cursor: pointer; margin-left: 1vw;position: absolute; top: 0; left: 0;" onclick="openNav()">&#9776; Open</span><br>
+          <div class="image-container" style="scale: 0.7; margin-top: -1vw;">
+            <img src="images/carbs.jpg" alt="Veggie Facts">
+            <p>Carbs are your body's energy currency!</p>
+          </div>
 
-          <div class="image-container" style="scale: 0.6; margin-left: 1%;">
+          <div class="image-container" style="scale: 0.7; margin-top: -0.25vw;">
             <img src="images/veggies.png" alt="Veggie Facts">
             <p>Vegetables boost your energy!</p>
           </div>
 
-          <div class="image-container" style="scale: 0.6; margin-left: 1%">
-            <img src="images/veggies.png" alt="Veggie Facts">
-            <p>Vegetables boost your energy!</p>
-          </div>
-
-          <div class="image-container" style="scale: 0.6; margin-left: 1%;">
-            <img src="images/veggies.png" alt="Veggie Facts">
-            <p>Vegetables boost your energy!</p>
+          <div class="image-container" style="scale: 0.6; margin-top: -2vw;">
+            <img src="images/protein.png" alt="Veggie Facts">
+            <p>Proteins play diverse roles in the body!</p>
           </div>
         </div>
       
           <!--HTML About Us Popup-->
-          <div id="welcome" class="modal fade" style="margin-left: 400px; width: 1500px;">
+          <div id="welcome" class="modal fade" style="margin-left: 25px; width: 1500px;">
             <div class="modal-dialog center">
               <div class="modal-content">
                 <div class="modal-header">
@@ -83,90 +84,77 @@
             </div>
         </div>
         <script>
+          var myInterval;
           var notificationsEnabled = false;
-          document.getElementById('notificationButton').addEventListener('click', enableNotifications);
-          document.getElementById('disableNotificationButton').addEventListener('click', disableNotifications);
-          
-          function enableNotifications() {
-              notificationsEnabled = true;
-              displayNotification("enabled Notification permissions!");
-          }
-          
-          function disableNotifications() {
-              notificationsEnabled = false;
-              displayNotification("disabled Notification permissions!");
-          }
-          
           function displayNotification(message) {
-              if (!("Notification" in window)) {
-                  console.error("This browser does not support system notifications");
-                  return;
-              }
-              if (Notification.permission === "granted") {
-                  var notification = new Notification("New Notification", {
-                      body: message
-                  });
-              }
-          }
-        function handleFormSubmission(event) {
-            event.preventDefault();
-            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            var uncheckedCheckboxes = [];
-            checkboxes.forEach(function (checkbox) {
-                if (!checkbox.checked) {
-                    uncheckedCheckboxes.push(checkbox.id);
-                }
-            });
-            if (uncheckedCheckboxes.length > 0 && notificationsEnabled == true) {
-                var message = "You have not checked the following tasks: " + uncheckedCheckboxes.join(', ');
+    // Check if the browser supports notifications
+    if (!("Notification" in window)) {
+        console.error("This browser does not support system notifications");
+        return;
+    }
+
+    // Check if notification permission is granted
+    if (Notification.permission === "granted") {
+        // Create and display the notification
+        var notification = new Notification("New Notification", {
+            body: message,
+            
+        });
+    } else if (Notification.permission !== "denied") {
+        // Otherwise, request permission from the user
+        Notification.requestPermission().then(function(permission) {
+            if (permission === "granted") {
+                // If permission is granted, display the notification
                 displayNotification(message);
-            } else if(notificationsEnabled == true){
-                displayNotification("All tasks are checked!");
             }
-        }
-        
-        function addCheckbox() {
-            var checkboxLabel = document.getElementById('checkboxInput').value;
-            if (checkboxLabel.trim() === '') {
-                alert('Please enter a label for the checkbox.');
-                return;
+        });
+    }
+}
+
+
+
+// Open the window
+
+// Function to enable notifications
+function enableNotifications() {
+    notificationsEnabled = true;
+    displayNotification("Enabled Notification permissions!");
+    localStorage.setItem('notification', notificationsEnabled);
+    
+    // Start periodic notifications
+    // 5 seconds in milliseconds
+}
+
+// Function to disable notifications
+function disableNotifications() {
+
+    clearInterval(myInterval); // Clear the interval to stop fetching notifications
+    notificationsEnabled = false;
+    localStorage.setItem('notification', notificationsEnabled);
+    displayNotification("Disabled Notification permissions!"); // Display a notification confirming that notifications are disabled
+
+}
+
+// Function to fetch notifications
+function fetchNotifications() {
+    // Here you can put your notification fetching logic
+    // For demonstration, let's display a message every 5 seconds
+    displayNotification("This is a notification message!");
+}
+
+        // Attach event listener to the "Enable Notifications" button
+        document.getElementById('notificationButton').addEventListener('click', enableNotifications);
+
+        // Attach event listener to the "Disable Notifications" button
+        document.getElementById('disableNotificationButton').addEventListener('click', disableNotifications);
+
+        // Function to open sidenav overlay
+        function openNav(){
+              document.getElementById("mySideNav").style.width = "250px";
             }
-            var checkboxContainer = document.getElementById('checkboxContainer');
-            var checkbox = document.createElement('input');
-
-            checkbox.type = 'checkbox';
-            checkbox.id = 'task' + (countCheckboxes() + 1);
-            checkbox.name = checkboxLabel;
-            checkbox.value = checkboxLabel;
-
-            var label = document.createElement('label');
-            label.appendChild(document.createTextNode(checkboxLabel));
-            checkboxContainer.appendChild(checkbox);
-            checkboxContainer.appendChild(label);
-            var br = document.createElement('br');
-            checkboxContainer.appendChild(br);
-
-            val = countCheckboxes('myForm')
-            document.getElementById('checkboxInput').value = '';
-            // Update event listener for form submission
-            document.getElementById('myForm').removeEventListener('submit', handleFormSubmission);
-            document.getElementById('myForm').addEventListener('submit', handleFormSubmission);
-        }
-            // Retrieve checkbox states from local storage and set them on page load
-            window.onload = function() {
-              const form = document.getElementById('myForm');
-              const checkboxes = form.querySelectorAll('input[type="checkbox"]');
-              
-              checkboxes.forEach(checkbox => {
-                const storedValue = localStorage.getItem(checkbox.id);
-                checkbox.checked = storedValue === 'true';
-        
-                // Update local storage when checkbox state changes
-                checkbox.addEventListener('change', function() {
-                  localStorage.setItem(checkbox.id, this.checked);
-                });
-              });
-            };
+            function closeNav(){
+              document.getElementById("mySideNav").style.width = "0px";
+            }
             function welcome()
             {
               document.getElementById("welcome").play();
